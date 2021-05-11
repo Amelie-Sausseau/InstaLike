@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon profil{% endblock %}
+
+{% block body %}
+<div class = "download-form" method="put">
+
+<h1>Modifier mon profil</h1>
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-lg btn-dark">Modifier</button>
+{{ form_end(form) }}
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+
+{% block body %}
+<div class="index">
+<h1>Bienvenue sur InstaLike !</h1>
+    <section class="user-gallery">
+
+    {% for uploads in allUploads %}
+    <div class="polaroids">
+    <a href="{{ path('picture_details', {'id': uploads.id})}}">
+    <img src="{{ asset('uploads/images/' ~ uploads.image ) }}" alt="{{ uploads.title}}" />
+    <p>{{ uploads.title}}</p>
+    </a>
+    </div>
+    {% endfor %}
+
+    </section>
+</div>
+{% endblock %}

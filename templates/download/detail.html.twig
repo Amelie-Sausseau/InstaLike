@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ uploadDetails.title}}
+{% endblock %}
+
+{% block body %}
+
+	<div class="picture-detail">
+
+		<section="detail">
+
+			<div class="unique-polaroid">
+				<img src="{{ asset('uploads/images/' ~ uploadDetails.image ) }}" alt="{{ uploadDetails.title}}"/>
+
+				<div class="user-options">
+					<p>Publié par
+						{% if (uploadDetails.user.avatar) %}
+							<img src="{{ asset('uploads/avatars/' ~ uploadDetails.user.avatar ) }}" alt="{{ uploadDetails.user.username}}"/>
+						{% endif %}
+						{{ uploadDetails.user.username}}
+						le
+						{{ uploadDetails.createdAt|date("d/m/Y", "Europe/Paris")}}</p>
+
+					{% if app.user == uploadDetails.user %}
+						<div class="picture-options">
+							<a class="fas fa-pencil-alt" href="{{ path('picture_edit', {"id" : uploadDetails.id}) }}" alt="Modifier"></a>
+							<a class="fas fa-times" href="{{ path('picture_delete', {"id" : uploadDetails.id}) }}" alt="Supprimer"></a>
+						</div>
+					{% endif %}
+				</div>
+				<h2>{{ uploadDetails.title}}</h2>
+				<p>{{ uploadDetails.description}}</p>
+
+                <hr>
+
+				{% if app.user %}
+					<div class="comment-form">
+						<p style="font-weight:bold">Commentaires :</p>
+						{{ form_start(form) }}
+						{{ form_errors(form) }}
+						{{ form_row(form.text, {'label':false}) }}
+						<button type="submit" class="btn btn-lg btn-dark">Envoyer</button>
+						{{ form_end(form) }}
+					</div>
+					{% else %}
+						<p>Merci de vous connecter ou de créer un compte afin de commenter</p>
+				{% endif %}
+
+
+				{% for comment in comments %}
+					<div class="comment-body">
+						<div class="comment">
+							<p>
+								{% if (comment.user.avatar) %}
+									<img src="{{ asset('uploads/avatars/' ~ comment.user.avatar ) }}" alt="{{ comment.user.username}}"/>
+								{% endif %}
+								{{ comment.user.username }}
+								le
+								{{ comment.createdAt|date("d/m/Y", "Europe/Paris") }}
+								à
+								{{ comment.createdAt|date('H:i') }}
+								:
+							</p>
+							{% if app.user == comment.user %}
+								<div class="comment-options">
+									<a class="fas fa-pencil-alt" href="{{ path('comment_edit', {"id" : comment.id}) }}" alt="Modifier"></a>
+									<a class="fas fa-times" href="{{ path('comment_delete', {"id" : comment.id}) }}" alt="Supprimer"></a>
+								</div>
+							{% endif %}
+						</div>
+						<p>{{ comment.text }}</p>
+
+					</div>
+				{% endfor %}
+			</div>
+
+		</section>
+
+		<a class="btn btn-lg btn-dark" href="{{ path('main') }}" type="button">
+			Retour
+		</a>
+
+
+	</div>
+
+
+{% endblock %}

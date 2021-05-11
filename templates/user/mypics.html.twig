@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes photos
+{% endblock %}
+
+{% block body %}
+
+	<div class="userpics-index">
+		<h1>Mes photos</h1>
+
+		<section class="user-gallery">
+
+			{% for userUpload in userUploads %}
+				<div class="polaroids">
+					<a href="{{ path('picture_details', {'id': userUpload.id})}}">
+						<img src="{{ asset('uploads/images/' ~ userUpload.image ) }}" alt="{{ userUpload.title}}" width="250px"/>
+						<p>{{ userUpload.title}}</p>
+					</a>
+				</div>
+			{% endfor %}
+		</section>
+
+		{% if userUploads|length < 1 %}
+			<div>
+				<h2>Pas encore de photo téléchargée</h2>
+			</div>
+		{% endif %}
+
+  				<a class="btn btn-lg btn-dark" href="{{ path('publish') }}" type="button">
+					Ajouter une photo
+				</a>
+
+	</div>
+{% endblock %}

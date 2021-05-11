@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord
+{% endblock %}
+
+{% block body %}
+
+	<div class="user-index">
+		<div class="welcome">
+			<h1>Bienvenue
+				{{ app.user.username }}</h1>
+			{% if (app.user.avatar) %}<img class="avatar" src="{{ asset('uploads/avatars/' ~ app.user.avatar) }}">
+			{% endif %}
+		</div>
+
+		<div class="notifications">
+			<!--<p>Vous avez reçu 'nombre'
+				{# app.user.messages|length #}
+				nouveaux messages</p>-->
+			<p>Vous avez posté
+				<a href="{{ path('user_images') }}">{{ app.user.uploads|length }}</a>
+				{% if app.user.uploads|length < 2 %}
+					photo
+				{% else %}
+					photos
+				{% endif %}
+			</p>
+		</div>
+
+		<div class="accordion accordion-flush" id="accordionFlushExample">
+			<div class="accordion-item">
+					<button class="accordion-button collapsed text-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+						<p>Vous avez posté
+							{{ app.user.comments|length }}
+							{% if app.user.comments|length < 2 %}
+								commentaire
+							{% else %}
+								commentaires
+							{% endif %}
+						</p>
+					</button>
+				</h2>
+				<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">{% for comment in comments %}
+					<div class="comment-body">
+						<div class="comment">
+							<p>
+								le
+								{{ comment.createdAt|date("d/m/Y", "Europe/Paris") }}
+								à
+								{{ comment.createdAt|date('H:i') }} sur "{{ comment.upload.title }}"
+								:
+							</p>
+						</div>
+						<p>{{ comment.text }}</p>
+					</div>
+				{% endfor %}</div>
+				</div>
+			</div>
+		</div>
+	{% endblock %}

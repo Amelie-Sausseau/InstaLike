@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon commentaire{% endblock %}
+
+{% block body %}
+<div class = "download-form">
+<h1>Modifier mon commentaire</h1>
+
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.text, {'label':false}) }}
+
+    <button type="submit" class="btn btn-dark"> Modifier </button>
+    <button type="submit" class="btn btn-dark" href="{{ app.request.headers.get('referer') }}"> Annuler </button>
+
+{{ form_end(form) }}
+</div>
+
+{% endblock %}

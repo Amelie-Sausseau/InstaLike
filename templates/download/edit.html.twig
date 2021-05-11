@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier {{ upload.title }}{% endblock %}
+
+{% block body %}
+<div class = "download-form">
+<h1>Modifier ma photo</h1>
+
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.title) }}
+
+    {{ form_row(form.description) }}
+
+    <button type="submit" class="btn btn-dark"> Modifier </button>
+    <button type="submit" class="btn btn-dark" href="{{ app.request.headers.get('referer') }}"> Annuler </button>
+
+{{ form_end(form) }}
+</div>
+
+{% endblock %}
