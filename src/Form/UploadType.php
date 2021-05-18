@@ -25,14 +25,7 @@ class UploadType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '5000k',
-                        'mimeTypes' => [
-                            'image/jpg',
-                            'image/jpeg',
-                            'image/png',
-                            'image/gif',
-                        ],
-                        'mimeTypesMessage' => 'Choisissez un format d\'image valide SVP',
+                        'maxSize' => '5000k'
                     ])
                 ]
             ])
